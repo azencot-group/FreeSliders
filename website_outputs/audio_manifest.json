@@ -71,7 +71,7 @@
       "negative": "choir singing a classical piece in a low pitch"
     }
   },
-  "Solo Guitar": {
+  "Solo_Guitar": {
     "name": "Solo Guitar",
     "files": [
       "audio_output_scale_-16.0.mp3",
