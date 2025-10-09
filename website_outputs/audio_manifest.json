@@ -17,8 +17,8 @@
       "negative": "Light rain falling"
     }
   },
-  "Ocean Waves": {
-    "name": "Ocean Waves",
+  "Ocean_Waves": {
+    "name": "Ocean_Waves",
     "files": [
       "audio_output_scale_-16.0.mp3",
       "audio_output_scale_-11.0.mp3",
@@ -35,26 +35,26 @@
       "negative": "tranquil ocean wave sounds"
     }
   },
-  "Dog Barking": {
-    "name": "Dog Barking",
+  "Cat_Meowing": {
+    "name": "Cat_Meowing",
     "files": [
-      "audio_output_scale_-2.0.wav",
-      "audio_output_scale_-1.0.mp3",
-      "audio_output_scale_-0.8.mp3",
+      "audio_output_scale_-16.0.mp3",
+      "audio_output_scale_-5.0.mp3",
+      "audio_output_scale_-4.8.mp3",
       "audio_output_scale_0.mp3",
-      "audio_output_scale_6.7.mp3",
-      "audio_output_scale_8.4.mp3",
+      "audio_output_scale_5.3.mp3",
+      "audio_output_scale_11.4.mp3",
       "audio_output_scale_16.0.mp3"
     ],
     "has_prompts": true,
     "prompts": {
-      "neutral": "Dog barking",
-      "positive": "Big dog barking",
-      "negative": "Small dog barking"
+      "neutral": "A cat meowing",
+      "positive": "A cat meowing loudly",
+      "negative": "A cat meowing softly"
     }
   },
-  "Choir Singing": {
-    "name": "Choir Singing",
+  "Choir_Singing": {
+    "name": "Choir_Singing",
     "files": [
       "audio_output_scale_-16.0.mp3",
       "audio_output_scale_-13.2.mp3",
@@ -89,22 +89,22 @@
       "negative": "solo acoustic guitar"
     }
   },
-  "Cat Meowing": {
-    "name": "Cat Meowing",
+  "Dog_Barking": {
+    "name": "Dog_Barking",
     "files": [
-      "audio_output_scale_-16.0.mp3",
-      "audio_output_scale_-5.0.mp3",
-      "audio_output_scale_-4.8.mp3",
+      "audio_output_scale_-2.0.wav",
+      "audio_output_scale_-1.0.mp3",
+      "audio_output_scale_-0.8.mp3",
       "audio_output_scale_0.mp3",
-      "audio_output_scale_5.3.mp3",
-      "audio_output_scale_11.4.mp3",
+      "audio_output_scale_6.7.mp3",
+      "audio_output_scale_8.4.mp3",
       "audio_output_scale_16.0.mp3"
     ],
     "has_prompts": true,
     "prompts": {
-      "neutral": "A cat meowing",
-      "positive": "A cat meowing loudly",
-      "negative": "A cat meowing softly"
+      "neutral": "Dog barking",
+      "positive": "Big dog barking",
+      "negative": "Small dog barking"
     }
   }
 }
