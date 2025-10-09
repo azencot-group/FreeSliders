@@ -2,16 +2,1031 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Hello World</title>
+        <title>Interactive Image Slider</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta name="robots" content="noindex,nofollow" />
-        <!-- Minimal placeholder compatible with GitHub Pages & anonymous.4open.science -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: none;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f5f5f5;
+            }
+            
+            .slider-container {
+                background: white;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .slider-row {
+                display: flex;
+                gap: 30px;
+                margin-bottom: 30px;
+                flex-wrap: wrap;
+            }
+            
+            .slider-row .slider-container {
+                flex: 1;
+                min-width: 300px;
+                margin-bottom: 0;
+            }
+            
+            .image-display {
+                width: 280px;
+                height: 210px;
+                    margin: 0 auto 0px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #f9f9f9;
+            }
+            
+            .image-display img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover;
+            }
+            
+            .slider-controls {
+                margin-top: 20px;
+            }
+            
+            .slider {
+                width: 100%;
+                max-width: 280px;
+                height: 8px;
+                border-radius: 4px;
+                background: #ddd;
+                appearance: none;
+                outline: none;
+                -webkit-appearance: none;
+                margin: 10px 0;
+            }
+            
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4CAF50;
+                cursor: pointer;
+                border: 2px solid white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            
+            .slider::-moz-range-thumb {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #4CAF50;
+                cursor: pointer;
+                border: 2px solid white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            
+            .image-counter {
+                margin-top: 15px;
+                font-size: 16px;
+                color: #666;
+            }
+            
+            .arrow-container {
+                margin: 20px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                color: #333;
+            }
+            
+            .prompts-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 280px;
+                margin: 15px auto;
+                padding: 0 20px;
+            }
+            
+            .prompt {
+                font-weight: bold;
+                padding: 8px 12px;
+                border-radius: 5px;
+                font-size: 14px;
+                min-height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .prompt.negative {
+                background-color: #ffebee;
+                color: #c62828;
+            }
+            
+            .prompt.neutral {
+                background-color: #f5f5f5;
+                color: #666;
+            }
+            
+            .prompt.positive {
+                background-color: #e8f5e8;
+                color: #2e7d32;
+            }
+            
+            .slider-description {
+                margin-bottom: 20px;
+                color: #555;
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            
+            .video-display {
+                width: 400px;
+                height: 300px;
+                margin: 0 auto 0px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #000;
+            }
+            
+            .video-display video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .video-row-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: stretch;
+                max-width: 100%;
+                margin: 20px auto;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            
+            .video-item {
+                flex: 1;
+                min-width: 280px;
+                text-align: center;
+            }
+            
+            .video-item video {
+                width: 100%;
+                height: 180px;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+                object-fit: cover;
+            }
+            
+            .video-label {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #666;
+                font-weight: bold;
+            }
+            
+            .audio-section {
+                background: white;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .audio-section-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 28px 24px;
+                align-items: stretch;
+            }
+
+            @media (max-width: 1200px) {
+                .audio-section-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+            }
+
+            @media (max-width: 768px) {
+                .audio-section-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            
+            .audio-folder-section {
+                margin: 0;
+                padding: 28px 24px;
+                border-radius: 12px;
+                background-color: #fafafa;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+                border: 1px solid #eceff1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+            }
+
+            .audio-folder-title {
+                font-size: 20px;
+                color: #1f2933;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .audio-body {
+                width: 100%;
+                display: flex;
+                align-items: stretch;
+                gap: 16px;
+            }
+
+            .audio-arrow {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 28px;
+            }
+
+            .audio-arrow .arrow-head {
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+            }
+
+            .audio-arrow .arrow-line {
+                flex: 1;
+                width: 4px;
+                background: linear-gradient(to bottom, #c62828, #2e7d32);
+                border-radius: 999px;
+            }
+
+            .audio-arrow .arrow-head-top {
+                border-bottom: 10px solid #c62828;
+            }
+
+            .audio-arrow .arrow-head-bottom {
+                border-top: 10px solid #2e7d32;
+            }
+
+            .audio-prompt-top,
+            .audio-prompt-bottom {
+                width: 100%;
+            }
+
+            .audio-list {
+                flex: 1;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .audio-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                background: #f8f9fa;
+                border-radius: 12px;
+                box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+                border: 1px solid #e4e7eb;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .audio-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(15, 23, 42, 0.15);
+            }
+            
+            .audio-item audio {
+                flex: 0 0 220px;
+                width: 220px;
+                border-radius: 12px;
+            }
+
+            .audio-item .audio-label {
+                margin-left: auto;
+            }
+
+            .audio-label {
+                font-size: 13px;
+                font-weight: 700;
+                letter-spacing: 0.4px;
+                text-transform: uppercase;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 6px 10px;
+                border-radius: 999px;
+                min-width: 54px;
+            }
+
+            .audio-label.negative-label {
+                color: #c62828;
+            }
+
+            .audio-label.positive-label {
+                color: #2e7d32;
+            }
+            
+            .paper-header {
+                background: white;
+                border-radius: 10px;
+                padding: 40px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .paper-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #1f2933;
+                margin-bottom: 25px;
+                line-height: 1.3;
+            }
+            
+            .paper-abstract {
+                text-align: left;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .paper-abstract h2 {
+                font-size: 18px;
+                font-weight: 600;
+                color: #2d3748;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .paper-abstract p {
+                font-size: 14px;
+                line-height: 1.6;
+                color: #4a5568;
+                margin-bottom: 0;
+                text-align: justify;
+            }
+            
+            .paper-note {
+                background: #f7fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                text-align: center;
+            }
+            
+            .paper-note p {
+                margin: 0;
+                font-style: italic;
+                color: #2d3748;
+            }
+            
+            .table-of-contents {
+                background: white;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .toc-title {
+                font-size: 20px;
+                font-weight: 600;
+                color: #1f2933;
+                margin-bottom: 20px;
+            }
+            
+            .toc-list {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+            
+            .toc-item {
+                padding: 10px 20px;
+                background: #f8f9fa;
+                border-radius: 25px;
+                text-decoration: none;
+                color: #4a5568;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+            }
+            
+            .toc-item:hover {
+                background: #e8f5e8;
+                color: #2e7d32;
+                border-color: #4CAF50;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+        </style>
     </head>
     <body>
-        <h1>Hello World</h1>
-        <p>
-            This is a minimal placeholder page. Replace this content with your
-            site.
-        </p>
+        <!-- Paper Header -->
+        <div class="paper-header">
+            <h1 class="paper-title">Training-Free Modality-Agnostic Concept Sliders: Fine-Grained Control via Diffusion Models of Images, Audio, and Video</h1>
+            <div class="paper-abstract">
+                <h2>Abstract</h2>
+                <p>Diffusion models have become state-of-the-art generative models for images, audio, and video, yet enabling <em>fine-grained controllable generation</em>, i.e., continuously steering specific concepts without disturbing unrelated content, remains challenging. Concept Sliders (CS) offer a promising direction by discovering semantic directions through textual contrasts, but they require per-concept training and architecture-specific fine-tuning (e.g., LoRA), limiting scalability to new modalities. In this work, we introduce a simple yet effective approach that is fully <em>training-free</em> and <em>modality-agnostic</em>, achieved by partially estimating the CS formula during inference. To support modality-agnostic evaluation, we extend the CS benchmark to include both video and audio, establishing the first suite for fine-grained concept generation control with multiple modalities. We further propose three evaluation properties along with new metrics to improve evaluation quality. Finally, we identify an open problem of scale selection and non-linear traversals and introduce a two-stage procedure that automatically detects saturation points and reparameterizes traversal for perceptually uniform, semantically meaningful edits. Extensive experiments demonstrate that our method enables plug-and-play, training-free concept control across modalities, improves over existing baselines, and establishes new tools for principled controllable generation.</p>
+                <div class="paper-note">
+                    <p>This website presents visual examples of our results across different modalities. The full code and implementation will be available soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="table-of-contents">
+            <h2 class="toc-title">Explore Our Results</h2>
+            <div class="toc-list">
+                <a href="#image-sliders" class="toc-item">📸 Image Sliders</a>
+                <a href="#video-sliders" class="toc-item">🎥 Video Sliders</a>
+                <a href="#audio-examples" class="toc-item">🔊 Audio Examples</a>
+            </div>
+        </div>
+
+        <!-- Interactive Image Sliders -->
+        <div class="slider-row" id="image-sliders">
+            <div class="slider-container">
+                <h1>Interactive Image Sliders</h1>
+                <div class="slider-description">
+                    Explore different image transformations and effects. 
+                    Move the sliders below to see how various attributes change.
+                </div>
+                
+                <div class="arrow-container">←→</div>
+
+                <div class="video-row-container">
+                    <!-- Facial Expression Slider -->
+                    <div class="video-item">
+                        <h3>Smiling</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Frowning</div>
+                            <div class="prompt neutral">Neutral</div>
+                            <div class="prompt positive">Smiling</div>
+                        </div>
+                        <div class="image-display" id="imageDisplay1">
+                            <img id="currentImage1" src="website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg" alt="Expression">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="32" value="16" class="slider" id="imageSlider1">
+                        </div>
+                    </div>
+
+                    <!-- Age Slider -->
+                    <div class="video-item">
+                        <h3>Age</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Young</div>
+                            <div class="prompt neutral">Neutral</div>
+                            <div class="prompt positive">Old</div>
+                        </div>
+                        <div class="image-display" id="imageDisplay2">
+                            <img id="currentImage2" src="website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg" alt="Age">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="41" value="21" class="slider" id="imageSlider2">
+                        </div>
+                    </div>
+
+                    <!-- Third Concept Slider -->
+                    <div class="video-item">
+                        <h3>Car</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">New</div>
+                            <div class="prompt neutral">Original</div>
+                            <div class="prompt positive">Damaged</div>
+                        </div>
+                        <div class="image-display" id="imageDisplay3">
+                            <img id="currentImage3" src="website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg" alt="Car">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="25" value="6" class="slider" id="imageSlider3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consolidated video container with multiple examples -->
+        <div class="slider-row" id="video-sliders">
+            <div class="slider-container">
+                <h1>Interactive Video Slider</h1>
+                <div class="slider-description">
+                    This slider demonstrates different video effects and transitions. 
+                    Move the sliders below to explore different styles.
+                </div>
+                
+                <div class="arrow-container">←→</div>
+
+                <div class="video-row-container">
+                    <!-- Example 1: Sailboat -->
+                    <div class="video-item">
+                        <div class="prompts-container">
+                            <div class="prompt negative">Calm ocean</div>
+                            <div class="prompt neutral">Normal Ocean</div>
+                            <div class="prompt positive">Stormy ocean</div>
+                        </div>
+                        <div class="video-display" id="videoDisplay1">
+                            <video id="currentVideo1" autoplay muted loop>
+                                <source src="website_outputs/video/sailboat/15/913/scale_0.0.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="11" value="6" class="slider" id="videoSlider1">
+                            <div class="image-counter">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example 2: River Waves -->
+                    <div class="video-item">
+                        <div class="prompts-container">
+                            <div class="prompt negative">Calm river</div>
+                            <div class="prompt neutral">River streaming through valley</div>
+                            <div class="prompt positive">Wavey river</div>
+                        </div>div>
+                        <div class="video-display" id="videoDisplayRiver">
+                            <video id="currentVideoRiver" autoplay muted loop>
+                                <source src="website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="8" value="5" class="slider" id="videoSliderRiver">
+                            <div class="image-counter">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Example 3: Tree -->
+                    <div class="video-item">
+                        <div class="prompts-container">
+                            <div class="prompt negative">Brown, bare tree</div>
+                            <div class="prompt neutral">Tree leaves rustling in wind</div>
+                            <div class="prompt positive">Green, leafy tree</div>
+                        </div>
+                        <div class="video-display" id="videoDisplayTree">
+                            <video id="currentVideoTree" autoplay muted loop>
+                                <source src="website_outputs/video/tree/205/scale_0.0.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="9" value="5" class="slider" id="videoSliderTree">
+                            <div class="image-counter">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audio files will be dynamically generated here -->
+        <div id="audioSectionsContainer"></div>
+
+        <script>
+            // Array of image URLs for smiling expressions (first slider) - JPEG only
+            const emotionImages = [
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-10.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-6.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-6.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-5.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-4.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-4.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-3.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-3.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-2.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-2.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-1.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-1.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-0.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_1.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_1.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_2.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_2.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_3.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_3.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_4.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_4.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_5.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_6.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_6.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_7.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_7.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_8.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_8.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.0.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.5.jpeg',
+                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_10.0.jpeg'
+            ];
+            
+            // Array of image URLs for age (second slider) - converted to JPEG
+            const ageImages = [
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-10.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-0.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.0.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.5.jpeg',
+                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_10.0.jpeg'
+            ];
+            
+            // Array of image URLs for car (third slider)
+            const carImages = [
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-5.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-4.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-3.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-2.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-1.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_1.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_2.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_3.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_4.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_5.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_6.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_7.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_8.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_9.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_10.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_11.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_12.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_13.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_14.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_15.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_16.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_17.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_18.jpeg',
+                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_19.jpeg'
+            ];
+            
+            // Array of video URLs for video slider
+            const videoSources = [
+                'website_outputs/video/sailboat/15/913/scale_-12.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_-8.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_-4.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_-2.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_-1.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_0.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_1.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_2.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_4.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_8.0.mp4',
+                'website_outputs/video/sailboat/15/913/scale_12.0.mp4'
+            ];
+            
+            // Array of video URLs for River Waves slider
+            const videoSourcesRiver = [
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-12.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-8.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-4.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-2.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_2.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_4.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_12.0.mp4'
+            ];
+            
+            // Array of video URLs for Tree slider
+            const videoSourcesTree = [
+                'website_outputs/video/tree/205/scale_-12.0.mp4',
+                'website_outputs/video/tree/205/scale_-8.0.mp4',
+                'website_outputs/video/tree/205/scale_-4.0.mp4',
+                'website_outputs/video/tree/205/scale_-2.0.mp4',
+                'website_outputs/video/tree/205/scale_0.0.mp4',
+                'website_outputs/video/tree/205/scale_2.0.mp4',
+                'website_outputs/video/tree/205/scale_4.0.mp4',
+                'website_outputs/video/tree/205/scale_8.0.mp4',
+                'website_outputs/video/tree/205/scale_12.0.mp4'
+            ];
+            
+            // Get elements
+            const slider1 = document.getElementById('imageSlider1');
+            const currentImage1 = document.getElementById('currentImage1');
+            
+            const slider2 = document.getElementById('imageSlider2');
+            const currentImage2 = document.getElementById('currentImage2');
+
+            const slider3 = document.getElementById('imageSlider3');
+            const currentImage3 = document.getElementById('currentImage3');
+
+            const videoSlider = document.getElementById('videoSlider1');
+            const currentVideo = document.getElementById('currentVideo1');
+            const videoNumber = document.getElementById('videoNumber1');
+
+            // Elements for River Waves slider
+            const videoSliderRiver = document.getElementById('videoSliderRiver');
+            const currentVideoRiver = document.getElementById('currentVideoRiver');
+            const videoNumberRiver = document.getElementById('videoNumberRiver');
+            
+            // Elements for Tree slider
+            const videoSliderTree = document.getElementById('videoSliderTree');
+            const currentVideoTree = document.getElementById('currentVideoTree');
+            const videoNumberTree = document.getElementById('videoNumberTree');
+            
+            // Update functions
+            function updateImage1() {
+                const sliderValue = parseInt(slider1.value);
+                const imageIndex = sliderValue - 1;
+                currentImage1.src = emotionImages[imageIndex];
+                currentImage1.alt = `Smiling`;
+            }
+            
+            function updateImage2() {
+                const sliderValue = parseInt(slider2.value);
+                const imageIndex = sliderValue - 1;
+                currentImage2.src = ageImages[imageIndex];
+                currentImage2.alt = `Age`;
+            }
+            
+            function updateImage3() {
+                const sliderValue = parseInt(slider3.value);
+                const imageIndex = sliderValue - 1;
+                currentImage3.src = carImages[imageIndex];
+                currentImage3.alt = `Car`;
+            }
+            
+            function updateVideo() {
+                const sliderValue = parseInt(videoSlider.value);
+                const videoIndex = sliderValue - 1;
+                currentVideo.src = videoSources[videoIndex];
+            }
+
+            // Update function for River Waves
+            function updateVideoRiver() {
+                const sliderValue = parseInt(videoSliderRiver.value);
+                const videoIndex = sliderValue - 1;
+                currentVideoRiver.src = videoSourcesRiver[videoIndex];
+            }
+            
+            // Update function for Tree
+            function updateVideoTree() {
+                const sliderValue = parseInt(videoSliderTree.value);
+                const videoIndex = sliderValue - 1;
+                currentVideoTree.src = videoSourcesTree[videoIndex];
+            }
+            
+            // Event listeners
+            slider1.addEventListener('input', updateImage1);
+            slider2.addEventListener('input', updateImage2);
+            slider3.addEventListener('input', updateImage3);
+            videoSlider.addEventListener('input', updateVideo);
+            if (videoSliderRiver) {
+                videoSliderRiver.addEventListener('input', updateVideoRiver);
+            }
+            if (videoSliderTree) {
+                videoSliderTree.addEventListener('input', updateVideoTree);
+            }
+            
+            // Audio discovery functions
+            async function loadAudioManifest() {
+                try {
+                    console.log('Loading audio manifest...');
+                    const response = await fetch('website_outputs/audio_manifest.json');
+                    
+                    if (!response.ok) {
+                        throw new Error(`Manifest not found (${response.status}). Run generate_audio_manifest.py first.`);
+                    }
+                    
+                    const manifest = await response.json();
+                    const discoveredFolders = [];
+                    
+                    console.log('Manifest loaded:', manifest);
+                    
+                    for (const [folderName, folderInfo] of Object.entries(manifest)) {
+                        const processedFolder = {
+                            name: folderName,
+                            path: `website_outputs/audio/${folderName}/`,
+                            prompts: folderInfo.prompts,
+                            hasPrompts: folderInfo.has_prompts,
+                            files: folderInfo.files.map(fileName => {
+                                const scale = extractScaleFromFilename(fileName);
+                                return {
+                                    filename: fileName,
+                                    url: `website_outputs/audio/${folderName}/${fileName}`,
+                                    scale: scale,
+                                    format: 'mp3'
+                                };
+                            }),
+                            fileCount: folderInfo.files.length
+                        };
+                        
+                        discoveredFolders.push(processedFolder);
+                        console.log(`✓ Processed ${folderName}: ${processedFolder.fileCount} files`);
+                    }
+                    
+                    return discoveredFolders;
+                    
+                } catch (error) {
+                    console.error('Error loading audio manifest:', error);
+                    return [];
+                }
+            }
+
+            async function discoverAudioFolders() {
+                return await loadAudioManifest();
+            }
+            
+            function extractScaleFromFilename(filename) {
+                const scaleMatch = filename.match(/scale_(-?\d+\.?\d*)/);
+                if (scaleMatch) {
+                    return parseFloat(scaleMatch[1]);
+                }
+                return null;
+            }
+            
+            function createAudioSection(discoveredFolders) {
+                let foldersHtml = '';
+                
+                discoveredFolders.forEach(folderInfo => {
+                    const neutralTitle = folderInfo.prompts.neutral;
+                    
+                    let audioItemsHtml = '';
+                    const files = [...folderInfo.files].sort((a, b) => (a.scale ?? 0) - (b.scale ?? 0));
+                    const neutralIndex = files.findIndex(file => file.scale === 0);
+                    const baseNeutralIndex = neutralIndex !== -1 ? neutralIndex : Math.floor(files.length / 2);
+                    
+                    files.forEach((audioFile, index) => {
+                        const isNeutral = index === baseNeutralIndex;
+                        let displayLabel;
+
+                        if (isNeutral) {
+                            displayLabel = '0';
+                        } else {
+                            const offset = Math.abs(index - baseNeutralIndex);
+                            const sign = index < baseNeutralIndex ? '\u2212' : '+';
+                            displayLabel = sign.repeat(offset);
+                        }
+                        
+                        const labelClass = isNeutral
+                            ? 'audio-label neutral-label'
+                            : index < baseNeutralIndex
+                                ? 'audio-label negative-label'
+                                : 'audio-label positive-label';
+                        
+                        audioItemsHtml += `
+                            <div class="audio-item">
+                                <audio controls preload="metadata" src="${audioFile.url}">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="${labelClass}">${displayLabel}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    foldersHtml += `
+                        <div class="audio-folder-section">
+                            <h3 class="audio-folder-title">${neutralTitle}</h3>
+                            <div class="audio-prompt-top">
+                                <div class="prompt negative">${folderInfo.prompts.negative}</div>
+                            </div>
+                            <div class="audio-body">
+                                <div class="audio-arrow" aria-hidden="true">
+                                    <span class="arrow-head arrow-head-top"></span>
+                                    <span class="arrow-line"></span>
+                                    <span class="arrow-head arrow-head-bottom"></span>
+                                </div>
+                                <div class="audio-list">
+                                    ${audioItemsHtml}
+                                </div>
+                            </div>
+                            <div class="audio-prompt-bottom">
+                                <div class="prompt positive">${folderInfo.prompts.positive}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                return `
+                    <div class="audio-section" id="audio-examples">
+                        <h1>Audio Examples</h1>
+                        <div class="slider-description">
+                            Explore different audio samples organized by category. Each column pairs the prompt descriptions with the corresponding audio variations.
+                        </div>
+                        <div class="audio-section-grid">
+                            ${foldersHtml}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            async function initializeAudioSections() {
+                const container = document.getElementById('audioSectionsContainer');
+                container.innerHTML = '<div class="loading-message">Loading audio files...</div>';
+                
+                try {
+                    const discoveredFolders = await discoverAudioFolders();
+                    
+                    if (discoveredFolders.length === 0) {
+                        container.innerHTML = `
+                            <div class="loading-message">No audio manifest found. Run generate_audio_manifest.py to create the manifest file.</div>
+                        `;
+                        return;
+                    }
+                    
+                    container.innerHTML = createAudioSection(discoveredFolders);
+                    
+                    // Fix audio elements after they're created
+                    const audioElements = container.querySelectorAll('audio');
+                    audioElements.forEach((audio, index) => {
+                        // Ensure audio is properly configured
+                        audio.muted = false;
+                        audio.volume = 0.5;
+                        audio.preload = "none";
+                        
+                        // Add click handler to ensure user interaction
+                        audio.addEventListener('click', function() {
+                            if (audio.paused) {
+                                audio.play().catch(error => {
+                                    console.error(`Audio play failed:`, error);
+                                });
+                            }
+                        });
+                    });
+                    
+                } catch (error) {
+                    console.error('Error during initialization:', error);
+                    container.innerHTML = `
+                        <div class="loading-message">Error loading audio files: ${error.message}</div>
+                    `;
+                }
+            }
+            
+            // Initialize when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                updateImage1();
+                updateImage2();
+                updateImage3();
+                updateVideo();
+                if (typeof updateVideoRiver === 'function') updateVideoRiver();
+                if (typeof updateVideoTree === 'function') updateVideoTree();
+                initializeAudioSections();
+            });
+        </script>
     </body>
 </html>
