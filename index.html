@@ -37,21 +37,20 @@
             }
             
             .image-display {
-                width: 280px;
-                height: 210px;
-                    margin: 0 auto 10px;
-                border: 2px solid #ddd;
-                border-radius: 8px;
+                display: inline-flex;
+                margin: 0 0 0px;
+                border: 0px solid #ddd;
+                border-radius: 0px;
                 overflow: hidden;
-                display: flex;
                 align-items: center;
                 justify-content: center;
                 background-color: #f9f9f9;
             }
             
             .image-display img {
+                display: block;
                 max-width: 100%;
-                max-height: 100%;
+                height: auto;
                 object-fit: cover;
             }
             
@@ -110,30 +109,31 @@
             
             .prompts-container {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
                 max-width: 280px;
-                margin: 15px auto;
+                margin: 12px auto;
                 padding: 0 20px;
-                position: relative;
+                gap: 12px;
             }
             
             .prompts-container .arrow-left,
             .prompts-container .arrow-right {
-                position: absolute;
+                position: static;
                 font-size: 18px;
-                color: #666;
+                color: #020202;
                 font-weight: bold;
+                transform: none;
             }
             
             .prompts-container .arrow-left {
                 left: 25%;
-                transform: translateX(-50%);
+                transform: translateX(-0%);
             }
             
             .prompts-container .arrow-right {
                 right: 25%;
-                transform: translateX(50%);
+                transform: translateX(0%);
             }
             
             .prompt {
@@ -217,6 +217,55 @@
                 font-size: 14px;
                 color: #666;
                 font-weight: bold;
+            }
+            
+            .image-grid-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+            }
+            
+            .image-grid-row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .image-grid-row h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: #1f2933;
+                text-align: center;
+            }
+            
+            .image-grid {
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+                padding: 10px 0;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .image-grid img {
+                height: 120px;
+                width: auto;
+                border-radius: 6px;
+                border: 2px solid #ddd;
+                object-fit: cover;
+                transition: transform 0.2s ease;
+                flex-shrink: 0;
+            }
+            
+            .image-grid img:hover {
+                transform: scale(1.05);
+                border-color: #4CAF50;
             }
             
             .audio-section {
@@ -381,6 +430,20 @@
                 line-height: 1.3;
             }
             
+            .teaser-container {
+                margin: 50px 0 0 0;
+                text-align: center;
+            }
+            
+            .teaser-image {
+                width: 100%;
+                max-width: 800px;
+                height: auto;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
             .paper-abstract {
                 text-align: left;
                 max-width: 800px;
@@ -461,7 +524,7 @@
             }
             
             .video-grid-container {
-                max-width: 1200px;
+                max-width: 2500px;
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr;
@@ -489,12 +552,51 @@
             
             .video-grid-container video {
                 width: 100%;
-                max-width: 1000px;
+                max-width: 2500px;
                 height: auto;
                 display: block;
                 border-radius: 8px;
                 border: 2px solid #ddd;
                 background-color: #000;
+            }
+            
+            .method-comparison-grid {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 15px;
+            }
+            
+            .method-row {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                border-bottom: 1px solid #e0e0e0;
+                padding: 10px 0;
+                margin: 0px 5% 0px 0px;
+            }
+
+            .method-row .image-display {
+                flex: none;
+                margin: 0;
+            }
+
+            .method-row .image-display img {
+                width: auto !important;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            .method-label {
+                min-width: 200px;
+                padding: 0 -600px 0 0;
+                font-weight: 600;
+                font-size: 14px;
+                color: #1f2933;
+                text-align: right;
+                white-space: nowrap;
             }
             
         </style>
@@ -503,12 +605,18 @@
         <!-- Paper Header -->
         <div class="paper-header">
             <h1 class="paper-title">Training-Free Modality-Agnostic Concept Sliders: Fine-Grained Control via Diffusion Models of Images, Audio, and Video</h1>
+            
             <div class="paper-abstract">
                 <h2>Abstract</h2>
                 <p>Diffusion models have become state-of-the-art generative models for images, audio, and video, yet enabling <em>fine-grained controllable generation</em>, i.e., continuously steering specific concepts without disturbing unrelated content, remains challenging. Concept Sliders (CS) offer a promising direction by discovering semantic directions through textual contrasts, but they require per-concept training and architecture-specific fine-tuning (e.g., LoRA), limiting scalability to new modalities. In this work, we introduce a simple yet effective approach that is fully <em>training-free</em> and <em>modality-agnostic</em>, achieved by partially estimating the CS formula during inference. To support modality-agnostic evaluation, we extend the CS benchmark to include both video and audio, establishing the first suite for fine-grained concept generation control with multiple modalities. We further propose three evaluation properties along with new metrics to improve evaluation quality. Finally, we identify an open problem of scale selection and non-linear traversals and introduce a two-stage procedure that automatically detects saturation points and reparameterizes traversal for perceptually uniform, semantically meaningful edits. Extensive experiments demonstrate that our method enables plug-and-play, training-free concept control across modalities, improves over existing baselines, and establishes new tools for principled controllable generation.</p>
                 <div class="paper-note">
                     <p>This website presents visual examples of our results across different modalities. The full code and implementation will be available soon.</p>
                 </div>
+            </div>
+            
+            <!-- Teaser Figure -->
+            <div class="teaser-container">
+                <img src="website_outputs/figures_from_paper/teaser.jpg" alt="Method Overview Teaser" class="teaser-image">
             </div>
         </div>
 
@@ -518,9 +626,10 @@
             <div class="toc-list">
                 <a href="#image-sliders" class="toc-item">📸 Image Sliders</a>
                 <a href="#video-sliders" class="toc-item">🎥 Video Sliders</a>
-                <a href="#ltx-video-grids" class="toc-item">🎬 LTX Video Grids</a>
-                <a href="#paper-figures" class="toc-item">📊 Paper Figures</a>
                 <a href="#audio-examples" class="toc-item">🔊 Audio Examples</a>
+                <a href="#ltx-video-grids" class="toc-item">🎬 LTX Video Grids</a>
+                <a href="#paper-figures" class="toc-item">📊 Composition</a>
+                <a href="#method-comparisons" class="toc-item">⚖️ Method Comparisons</a>
             </div>
         </div>
 
@@ -532,8 +641,6 @@
                     Explore different image transformations and effects. 
                     Move the sliders below to see how various attributes change.
                 </div>
-                
-                <div class="arrow-container">←→</div>
 
                 <div class="video-row-container">
                     <!-- Facial Expression Slider -->
@@ -541,14 +648,16 @@
                         <h3>Smiling</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Frowning</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Neutral</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Smiling</div>
                         </div>
                         <div class="image-display" id="imageDisplay1">
                             <img id="currentImage1" src="website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg" alt="Expression">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="15" value="7" class="slider" id="imageSlider1">
+                            <input type="range" min="3" max="14" value="8" class="slider" id="imageSlider1">
                         </div>
                     </div>
 
@@ -557,14 +666,16 @@
                         <h3>Age</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Young</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Neutral</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Old</div>
                         </div>
                         <div class="image-display" id="imageDisplay2">
-                            <img id="currentImage2" src="website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg" alt="Age">
+                            <img id="currentImage2" src="website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_0.0.jpeg" alt="Age">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="21" value="11" class="slider" id="imageSlider2">
+                            <input type="range" min="10" max="19" value="14" class="slider" id="imageSlider2">
                         </div>
                     </div>
 
@@ -573,14 +684,73 @@
                         <h3>Car</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">New</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Damaged</div>
                         </div>
                         <div class="image-display" id="imageDisplay3">
-                            <img id="currentImage3" src="website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg" alt="Car">
+                            <img id="currentImage3" src="website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_1.jpeg" alt="Car">
                         </div>
                         <div class="slider-controls">
                             <input type="range" min="1" max="14" value="7" class="slider" id="imageSlider3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Image Grid Examples -->
+        <div class="slider-row" id="image-grids">
+            <div class="slider-container">
+                <h1>Additional Slider Examples</h1>
+                <div class="slider-description">
+                    More examples of our concept sliders showing smooth transformations across different attributes.
+                </div>
+                
+                <div class="image-grid-container">
+                    <!-- Age Slider Grid Row -->
+                    <div class="image-grid-row">
+                        <h3>Age Transformation</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Young</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Old</div>
+                        </div>
+                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <img src="website_outputs/images_website/age_real1/timestep_20251009_164728_879985/seed_4838/combined_row.jpeg" alt="Age Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    
+                    <!-- Lipstick Slider Grid Row -->
+                    <div class="image-grid-row">
+                        <h3>Makeup</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">No Makeup</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Makeup</div>
+                        </div>
+                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <img src="website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/seed_205/combined_row.jpeg" alt="Lipstick Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    
+                    <!-- Beard Slider Grid Row -->
+                    <div class="image-grid-row">
+                        <h3>Beard Transformation</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">No Beard</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Beard</div>
+                        </div>
+                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <img src="website_outputs/images_website/beard_real1/timestep_20251009_164728_879985/seed_1144/combined_row.jpeg" alt="Beard Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
                         </div>
                     </div>
                 </div>
@@ -596,14 +766,14 @@
                     Move the sliders below to explore different styles.
                 </div>
                 
-                <div class="arrow-container">←→</div>
-
                 <div class="video-row-container">
                     <!-- Example 1: Sailboat -->
                     <div class="video-item">
                         <div class="prompts-container">
                             <div class="prompt negative">Calm ocean</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Normal Ocean</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Stormy ocean</div>
                         </div>
                         <div class="video-display" id="videoDisplay1">
@@ -623,7 +793,9 @@
                     <div class="video-item">
                         <div class="prompts-container">
                             <div class="prompt negative">Calm river</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">River streaming through valley</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Wavey river</div>
                         </div>
                         <div class="video-display" id="videoDisplayRiver">
@@ -643,7 +815,9 @@
                     <div class="video-item">
                         <div class="prompts-container">
                             <div class="prompt negative">Brown, bare tree</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Tree leaves rustling in wind</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Green, leafy tree</div>
                         </div>
                         <div class="video-display" id="videoDisplayTree">
@@ -662,6 +836,9 @@
             </div>
         </div>
 
+        <!-- Audio files will be dynamically generated here -->
+        <div id="audioSectionsContainer"></div>
+        
         <!-- LTX Video Grids Section -->
         <div class="slider-row" id="ltx-video-grids">
             <div class="slider-container">
@@ -724,7 +901,7 @@
         <!-- Paper Figures Section -->
         <div class="slider-row" id="paper-figures">
             <div class="slider-container">
-                <h1>Paper Figures: Slider Compositions</h1>
+                <h1>Slider Compositions</h1>
                 <div class="slider-description">
                     Examples from our paper showing how multiple concept sliders can be composed together to achieve complex transformations.
                 </div>
@@ -734,10 +911,11 @@
                         <h3>Age + Smiling Composition</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Young & Frowning</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Old & Smiling</div>
                         </div>
-                        <div class="arrow-container">←← Composition →→</div>
                         <div class="image-display" style="width: 100%; max-width: 800px; height: auto;">
                             <img src="website_outputs/figures_from_paper/guided_composition_age_smiling2.jpg" alt="Age and Smiling Composition" style="width: 100%; height: auto; object-fit: contain;">
                         </div>
@@ -746,11 +924,12 @@
                     <div class="video-grid-row">
                         <h3>Smiling + Lipstick + Glasses Composition</h3>
                         <div class="prompts-container">
-                            <div class="prompt negative">No Effects</div>
+                            <div class="prompt negative">Frowning & no glasses & no lipstick</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Original</div>
-                            <div class="prompt positive">All Effects</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Smiling & glasses & lipstick</div>
                         </div>
-                        <div class="arrow-container">←← Composition →→</div>
                         <div class="image-display" style="width: 100%; max-width: 800px; height: auto;">
                             <img src="website_outputs/figures_from_paper/slider_composition3.jpg" alt="Smiling, Lipstick and Glasses Composition" style="width: 100%; height: auto; object-fit: contain;">
                         </div>
@@ -759,8 +938,125 @@
             </div>
         </div>
 
-        <!-- Audio files will be dynamically generated here -->
-        <div id="audioSectionsContainer"></div>
+
+
+        <!-- Method Comparisons Section -->
+        <div class="slider-row" id="method-comparisons">
+            <div class="slider-container">
+                <h1>Method Comparisons</h1>
+                <div class="slider-description">
+                    Comparisons between different methods and effectiveness of our ASTD add-on across various concepts.
+                </div>
+                
+                <div class="video-grid-container">
+                    <!-- Glasses Concept Comparison -->
+                    <div class="video-grid-row">
+                        <h3>Glasses Concept - Method Comparison</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">No Glasses</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Glasses</div>
+                        </div>
+                        
+                        <div class="method-comparison-grid">
+                            <div class="method-row">
+                                <div class="method-label">Ours</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/5_guided_glasses_compare.jpg" alt="Ours - Glasses Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">CS</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/5_lora_astd_glasses_compare.jpg" alt="CS - Glasses Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">Text-Embedding Variant</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/5_te_glasses_compare.jpg" alt="Text-Embedding Variant - Glasses Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ASTD Add-on Effectiveness Comparison -->
+                    <div class="video-grid-row">
+                        <h3>ASTD Add-on Effectiveness - Age Concept</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Young</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Old</div>
+                        </div>
+                        
+                        <div class="method-comparison-grid">
+                            <div class="method-row">
+                                <div class="method-label">Ours w/ ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_guided_age_w_astd_compare.jpg" alt="Ours with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">Ours w/o ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_guided_age_wo_astd_compare.jpg" alt="Ours without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">CS w/ ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_lora_age_w_astd_compare.jpg" alt="CS with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">CS w/o ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_lora_age_wo_astd_compare.jpg" alt="CS without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    
+                    <!-- Smiling Concept Comparison -->
+                    <div class="video-grid-row">
+                        <h3>Smiling Concept - Method Comparison</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Frowning</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Original</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Smiling</div>
+                        </div>
+                        
+                        <div class="method-comparison-grid">
+                            <div class="method-row">
+                                <div class="method-label">Ours</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/8_guided_smiling_compare.jpg" alt="Ours - Smiling Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">CS</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/8_lora_smiling_compare.jpg" alt="CS - Smiling Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">Text-Embedding Variant</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/8_te_smiling_compare.jpg" alt="Text-Embedding Variant - Smiling Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script>
             const imageCache = new Map();
@@ -846,78 +1142,46 @@
                 // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_10.0.jpeg'
             ];
             
-            // Array of image URLs for age (second slider) - converted to JPEG
+            // Array of image URLs for age (second slider) - whole numbers only
             const ageImages = [
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-10.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-0.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.0.jpeg',
-                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.5.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_10.0.jpeg'
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-10.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-9.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-8.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-7.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-6.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-5.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-4.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-3.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-2.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_-1.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_0.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_1.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_2.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_3.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_4.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_5.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_6.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_7.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_8.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_9.0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_140044_471821/seed_4468/scale_10.0.jpeg'
             ];
             
-            // Array of image URLs for car (third slider)
+            // Array of image URLs for car (third slider) - taking every second image
             const carImages = [
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-5.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-4.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-3.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-2.jpeg',
-                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-1.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg',
-                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_1.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_2.jpeg',
-                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_3.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_4.jpeg',
-                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_5.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_6.jpeg',
-                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_7.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_8.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_9.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_10.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_11.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_12.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_13.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_14.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_15.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_16.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_17.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_18.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_19.jpeg'
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-5.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-3.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-1.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_1.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_3.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_5.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_7.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_9.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_11.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_13.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_15.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_17.jpeg',
+                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_19.jpeg'
             ];
             
             // Array of video URLs for video slider
