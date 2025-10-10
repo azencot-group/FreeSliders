@@ -72,7 +72,7 @@
     }
   },
   "Solo_Guitar": {
-    "name": "Solo Guitar",
+    "name": "Solo_Guitar",
     "files": [
       "audio_output_scale_-16.0.mp3",
       "audio_output_scale_-7.3.mp3",
