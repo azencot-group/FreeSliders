@@ -100,7 +100,7 @@
             }
             
             .arrow-container {
-                margin: 20px 0;
+                margin: 5px 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -115,6 +115,25 @@
                 max-width: 280px;
                 margin: 15px auto;
                 padding: 0 20px;
+                position: relative;
+            }
+            
+            .prompts-container .arrow-left,
+            .prompts-container .arrow-right {
+                position: absolute;
+                font-size: 18px;
+                color: #666;
+                font-weight: bold;
+            }
+            
+            .prompts-container .arrow-left {
+                left: 25%;
+                transform: translateX(-50%);
+            }
+            
+            .prompts-container .arrow-right {
+                right: 25%;
+                transform: translateX(50%);
             }
             
             .prompt {
@@ -500,6 +519,7 @@
                 <a href="#image-sliders" class="toc-item">📸 Image Sliders</a>
                 <a href="#video-sliders" class="toc-item">🎥 Video Sliders</a>
                 <a href="#ltx-video-grids" class="toc-item">🎬 LTX Video Grids</a>
+                <a href="#paper-figures" class="toc-item">📊 Paper Figures</a>
                 <a href="#audio-examples" class="toc-item">🔊 Audio Examples</a>
             </div>
         </div>
@@ -528,7 +548,7 @@
                             <img id="currentImage1" src="website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg" alt="Expression">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="8" value="4" class="slider" id="imageSlider1">
+                            <input type="range" min="1" max="15" value="7" class="slider" id="imageSlider1">
                         </div>
                     </div>
 
@@ -544,7 +564,7 @@
                             <img id="currentImage2" src="website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg" alt="Age">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="13" value="7" class="slider" id="imageSlider2">
+                            <input type="range" min="1" max="21" value="11" class="slider" id="imageSlider2">
                         </div>
                     </div>
 
@@ -605,7 +625,7 @@
                             <div class="prompt negative">Calm river</div>
                             <div class="prompt neutral">River streaming through valley</div>
                             <div class="prompt positive">Wavey river</div>
-                        </div>div>
+                        </div>
                         <div class="video-display" id="videoDisplayRiver">
                             <video id="currentVideoRiver" autoplay muted loop>
                                 <source src="website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4" type="video/mp4">
@@ -653,10 +673,11 @@
                 <div class="video-grid-container">
                     <div class="video-grid-row">
                         <h3>Age Concept</h3>
-                        <div class="arrow-container">←→</div>
                         <div class="prompts-container">
                             <div class="prompt negative">Old</div>
+                            <span class="arrow-left">←</span>
                             <div class="prompt neutral">Age</div>
+                            <span class="arrow-right">→</span>
                             <div class="prompt positive">Young</div>
                         </div>
                         <video id="ltxVideoGridAge" autoplay muted loop controls>
@@ -669,12 +690,26 @@
                         <h3>Sailboat Concept</h3>
                         <div class="arrow-container">←→</div>
                         <div class="prompts-container">
-                            <div class="prompt negative">Calm ocean</div>
+                            <div class="prompt negative">Slow boat</div>
                             <div class="prompt neutral">Sailboat</div>
-                            <div class="prompt positive">Stormy ocean</div>
+                            <div class="prompt positive">Fast boat</div>
                         </div>
                         <video id="ltxVideoGridSailboat" autoplay muted loop controls>
                             <source src="website_outputs/video_grids_ltx/compressed/sailboat_cropped.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <div class="video-grid-row">
+                        <h3>Car Color Concept</h3>
+                        <div class="arrow-container">←→</div>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Old white car</div>
+                            <div class="prompt neutral">Car</div>
+                            <div class="prompt positive">Bright red car</div>
+                        </div>
+                        <video id="ltxVideoGridCar" autoplay muted loop controls>
+                            <source src="website_outputs/video_grids_ltx/car_cropped.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -684,10 +719,88 @@
             </div>
         </div>
 
+        <!-- Paper Figures Section -->
+        <div class="slider-row" id="paper-figures">
+            <div class="slider-container">
+                <h1>Paper Figures: Slider Compositions</h1>
+                <div class="slider-description">
+                    Examples from our paper showing how multiple concept sliders can be composed together to achieve complex transformations.
+                </div>
+                
+                <div class="video-grid-container">
+                    <div class="video-grid-row">
+                        <h3>Age + Smiling Composition</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Young & Frowning</div>
+                            <div class="prompt neutral">Original</div>
+                            <div class="prompt positive">Old & Smiling</div>
+                        </div>
+                        <div class="arrow-container">←← Composition →→</div>
+                        <div class="image-display" style="width: 100%; max-width: 800px; height: auto;">
+                            <img src="website_outputs/figures_from_paper/guided_composition_age_smiling2.jpg" alt="Age and Smiling Composition" style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                    
+                    <div class="video-grid-row">
+                        <h3>Smiling + Lipstick + Glasses Composition</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">No Effects</div>
+                            <div class="prompt neutral">Original</div>
+                            <div class="prompt positive">All Effects</div>
+                        </div>
+                        <div class="arrow-container">←← Composition →→</div>
+                        <div class="image-display" style="width: 100%; max-width: 800px; height: auto;">
+                            <img src="website_outputs/figures_from_paper/slider_composition3.jpg" alt="Smiling, Lipstick and Glasses Composition" style="width: 100%; height: auto; object-fit: contain;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Audio files will be dynamically generated here -->
         <div id="audioSectionsContainer"></div>
 
         <script>
+            const imageCache = new Map();
+            const videoCache = new Map();
+
+            function prefetchAssets(urls, type) {
+                urls.forEach(url => {
+                    if (!url) return;
+                    const link = document.createElement('link');
+                    link.rel = 'prefetch';
+                    link.as = type;
+                    link.href = url;
+                    document.head.appendChild(link);
+                });
+            }
+
+            function setImageSource(img, url) {
+                if (imageCache.has(url)) {
+                    // console.log('Loading from cache:', url);
+                    img.src = imageCache.get(url);
+                    return;
+                }
+                const preload = new Image();
+                preload.onload = () => {
+                    imageCache.set(url, preload.src);
+                    img.src = preload.src;
+                };
+                preload.src = url;
+            }
+
+            async function setVideoSource(video, url) {
+                if (videoCache.has(url)) {
+                    video.src = videoCache.get(url);
+                    return;
+                }
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const objectUrl = URL.createObjectURL(blob);
+                videoCache.set(url, objectUrl);
+                video.src = objectUrl;
+            }
+
             // Array of image URLs for smiling expressions (first slider) - JPEG only
             const emotionImages = [
                 // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-10.0.jpeg',
@@ -873,42 +986,59 @@
             function updateImage1() {
                 const sliderValue = parseInt(slider1.value);
                 const imageIndex = sliderValue - 1;
-                currentImage1.src = emotionImages[imageIndex];
+                // currentImage1.src = emotionImages[imageIndex];
+                // log the length of emotionImages and the imageIndex
+                // console.log(`emotionImages length: ${emotionImages.length}, imageIndex: ${imageIndex}`);
+
                 currentImage1.alt = `Smiling`;
+                if (updateImage1.lastIndex === imageIndex) return;
+                updateImage1.lastIndex = imageIndex;
+                setImageSource(currentImage1, emotionImages[imageIndex]);
             }
             
             function updateImage2() {
                 const sliderValue = parseInt(slider2.value);
                 const imageIndex = sliderValue - 1;
-                currentImage2.src = ageImages[imageIndex];
+                // currentImage2.src = ageImages[imageIndex];
                 currentImage2.alt = `Age`;
+                if (updateImage2.lastIndex === imageIndex) return;
+                updateImage2.lastIndex = imageIndex;
+                setImageSource(currentImage2, ageImages[imageIndex])
             }
             
             function updateImage3() {
                 const sliderValue = parseInt(slider3.value);
                 const imageIndex = sliderValue - 1;
-                currentImage3.src = carImages[imageIndex];
+                // currentImage3.src = carImages[imageIndex];
                 currentImage3.alt = `Car`;
+                if (updateImage3.lastIndex === imageIndex) return;
+                updateImage3.lastIndex = imageIndex;
+                setImageSource(currentImage3, carImages[imageIndex])
             }
             
             function updateVideo() {
-                const sliderValue = parseInt(videoSlider.value);
-                const videoIndex = sliderValue - 1;
-                currentVideo.src = videoSources[videoIndex];
+                const videoIndex = parseInt(videoSlider.value) - 1;
+                if (updateVideo.lastIndex === videoIndex) return;
+                updateVideo.lastIndex = videoIndex;
+                setVideoSource(currentVideo, videoSources[videoIndex]);
             }
 
             // Update function for River Waves
             function updateVideoRiver() {
                 const sliderValue = parseInt(videoSliderRiver.value);
-                const videoIndex = sliderValue - 1;
-                currentVideoRiver.src = videoSourcesRiver[videoIndex];
+                const videoIndex =  sliderValue - 1;
+                if (updateVideoRiver.lastIndex === videoIndex) return;
+                updateVideoRiver.lastIndex = videoIndex;
+                setVideoSource(currentVideoRiver, videoSourcesRiver[videoIndex]);
             }
             
             // Update function for Tree
             function updateVideoTree() {
                 const sliderValue = parseInt(videoSliderTree.value);
                 const videoIndex = sliderValue - 1;
-                currentVideoTree.src = videoSourcesTree[videoIndex];
+                if (updateVideoTree.lastIndex === videoIndex) return;
+                updateVideoTree.lastIndex = videoIndex;
+                setVideoSource(currentVideoTree, videoSourcesTree[videoIndex]);
             }
             
             // Event listeners
@@ -1107,6 +1237,13 @@
                 if (typeof updateVideoTree === 'function') updateVideoTree();
                 initializeAudioSections();
             });
+
+            prefetchAssets(emotionImages, 'image');
+            prefetchAssets(ageImages, 'image');
+            prefetchAssets(carImages, 'image');
+            prefetchAssets(videoSources, 'video');
+            prefetchAssets(videoSourcesRiver, 'video');
+            prefetchAssets(videoSourcesTree, 'video');
         </script>
     </body>
 </html>
