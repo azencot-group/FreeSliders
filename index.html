@@ -441,6 +441,43 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
             
+            .video-grid-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+            }
+            
+            .video-grid-row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .video-grid-row h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: #1f2933;
+                text-align: center;
+            }
+            
+            .video-grid-container video {
+                width: 100%;
+                max-width: 1000px;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                border: 2px solid #ddd;
+                background-color: #000;
+            }
+            
         </style>
     </head>
     <body>
@@ -462,6 +499,7 @@
             <div class="toc-list">
                 <a href="#image-sliders" class="toc-item">📸 Image Sliders</a>
                 <a href="#video-sliders" class="toc-item">🎥 Video Sliders</a>
+                <a href="#ltx-video-grids" class="toc-item">🎬 LTX Video Grids</a>
                 <a href="#audio-examples" class="toc-item">🔊 Audio Examples</a>
             </div>
         </div>
@@ -490,7 +528,7 @@
                             <img id="currentImage1" src="website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg" alt="Expression">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="32" value="16" class="slider" id="imageSlider1">
+                            <input type="range" min="1" max="8" value="4" class="slider" id="imageSlider1">
                         </div>
                     </div>
 
@@ -506,7 +544,7 @@
                             <img id="currentImage2" src="website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg" alt="Age">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="41" value="21" class="slider" id="imageSlider2">
+                            <input type="range" min="1" max="13" value="7" class="slider" id="imageSlider2">
                         </div>
                     </div>
 
@@ -522,7 +560,7 @@
                             <img id="currentImage3" src="website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg" alt="Car">
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="25" value="6" class="slider" id="imageSlider3">
+                            <input type="range" min="1" max="14" value="7" class="slider" id="imageSlider3">
                         </div>
                     </div>
                 </div>
@@ -555,7 +593,7 @@
                             </video>
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="11" value="6" class="slider" id="videoSlider1">
+                            <input type="range" min="1" max="8" value="3" class="slider" id="videoSlider1">
                             <div class="image-counter">
                             </div>
                         </div>
@@ -575,7 +613,7 @@
                             </video>
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="8" value="5" class="slider" id="videoSliderRiver">
+                            <input type="range" min="1" max="5" value="2" class="slider" id="videoSliderRiver">
                             <div class="image-counter">
                             </div>
                         </div>
@@ -595,11 +633,53 @@
                             </video>
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="9" value="5" class="slider" id="videoSliderTree">
+                            <input type="range" min="1" max="8" value="4" class="slider" id="videoSliderTree">
                             <div class="image-counter">
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LTX Video Grids Section -->
+        <div class="slider-row" id="ltx-video-grids">
+            <div class="slider-container">
+                <h1>LTX Video Grids</h1>
+                <div class="slider-description">
+                    Explore video transformations using LTX Video generation with different concept variations.
+                </div>
+                
+                <div class="video-grid-container">
+                    <div class="video-grid-row">
+                        <h3>Age Concept</h3>
+                        <div class="arrow-container">←→</div>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Old</div>
+                            <div class="prompt neutral">Age</div>
+                            <div class="prompt positive">Young</div>
+                        </div>
+                        <video id="ltxVideoGridAge" autoplay muted loop controls>
+                            <source src="website_outputs/video_grids_ltx/age_cropped.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <div class="video-grid-row">
+                        <h3>Sailboat Concept</h3>
+                        <div class="arrow-container">←→</div>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Calm ocean</div>
+                            <div class="prompt neutral">Sailboat</div>
+                            <div class="prompt positive">Stormy ocean</div>
+                        </div>
+                        <video id="ltxVideoGridSailboat" autoplay muted loop controls>
+                            <source src="website_outputs/video_grids_ltx/compressed/sailboat_cropped.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <!-- Additional video grid rows can be added here -->
                 </div>
             </div>
         </div>
@@ -610,89 +690,89 @@
         <script>
             // Array of image URLs for smiling expressions (first slider) - JPEG only
             const emotionImages = [
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-10.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-10.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-9.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-8.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-7.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-6.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-6.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-5.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-6.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-5.5.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-4.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-4.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-4.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-3.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-3.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-3.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-2.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-2.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-2.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-1.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-1.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-1.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_-0.5.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_0.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_1.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_1.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_1.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_2.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_2.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_2.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_3.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_3.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_3.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_4.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_4.0.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_4.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_5.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_5.5.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_6.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_6.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_6.5.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_7.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_7.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_7.5.jpeg',
                 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_8.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_8.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.0.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.5.jpeg',
-                'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_10.0.jpeg'
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_8.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.0.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_9.5.jpeg',
+                // 'website_outputs/old/smiling_real1/timestep_20251009_111448_676867/scale_10.0.jpeg'
             ];
             
             // Array of image URLs for age (second slider) - converted to JPEG
             const ageImages = [
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-10.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-9.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-8.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-7.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-6.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-5.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-4.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-3.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-2.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-1.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-0.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_-0.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_0.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_1.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_2.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_3.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_4.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_5.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_6.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_7.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_8.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.0.jpeg',
-                'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.5.jpeg',
+                // 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_9.5.jpeg',
                 'website_outputs/age_real1/age_real1/timestep_20251009_140044_471821/seed_205/scale_10.0.jpeg'
             ];
             
@@ -702,15 +782,15 @@
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-4.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-3.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-2.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-1.jpeg',
+                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_-1.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_0.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_1.jpeg',
+                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_1.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_2.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_3.jpeg',
+                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_3.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_4.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_5.jpeg',
+                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_5.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_6.jpeg',
-                'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_7.jpeg',
+                // 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_7.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_8.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_9.jpeg',
                 'website_outputs/damaged_car/damaged_car/timestep_20251009_164728_879985/seed_913/scale_10.jpeg',
@@ -727,10 +807,10 @@
             
             // Array of video URLs for video slider
             const videoSources = [
-                'website_outputs/video/sailboat/15/913/scale_-12.0.mp4',
-                'website_outputs/video/sailboat/15/913/scale_-8.0.mp4',
+                // 'website_outputs/video/sailboat/15/913/scale_-12.0.mp4',
+                // 'website_outputs/video/sailboat/15/913/scale_-8.0.mp4',
                 'website_outputs/video/sailboat/15/913/scale_-4.0.mp4',
-                'website_outputs/video/sailboat/15/913/scale_-2.0.mp4',
+                // 'website_outputs/video/sailboat/15/913/scale_-2.0.mp4',
                 'website_outputs/video/sailboat/15/913/scale_-1.0.mp4',
                 'website_outputs/video/sailboat/15/913/scale_0.0.mp4',
                 'website_outputs/video/sailboat/15/913/scale_1.0.mp4',
@@ -742,10 +822,10 @@
             
             // Array of video URLs for River Waves slider
             const videoSourcesRiver = [
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-12.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-8.0.mp4',
+                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-12.0.mp4',
+                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-8.0.mp4',
                 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-4.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-2.0.mp4',
+                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-2.0.mp4',
                 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4',
                 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_2.0.mp4',
                 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_4.0.mp4',
@@ -754,7 +834,7 @@
             
             // Array of video URLs for Tree slider
             const videoSourcesTree = [
-                'website_outputs/video/tree/205/scale_-12.0.mp4',
+                // 'website_outputs/video/tree/205/scale_-12.0.mp4',
                 'website_outputs/video/tree/205/scale_-8.0.mp4',
                 'website_outputs/video/tree/205/scale_-4.0.mp4',
                 'website_outputs/video/tree/205/scale_-2.0.mp4',
