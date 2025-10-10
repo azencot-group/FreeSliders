@@ -473,6 +473,9 @@
                 padding: 20px;
                 margin-top: 20px;
                 text-align: center;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .paper-note p {
@@ -574,8 +577,8 @@
                 justify-content: center;
                 gap: 4px;
                 border-bottom: 1px solid #e0e0e0;
-                padding: 10px 0;
-                margin: 0px 5% 0px 0px;
+                padding: 15px 0;
+                margin: 5px 5% 5px 0px;
             }
 
             .method-row .image-display {
@@ -609,14 +612,15 @@
             <div class="paper-abstract">
                 <h2>Abstract</h2>
                 <p>Diffusion models have become state-of-the-art generative models for images, audio, and video, yet enabling <em>fine-grained controllable generation</em>, i.e., continuously steering specific concepts without disturbing unrelated content, remains challenging. Concept Sliders (CS) offer a promising direction by discovering semantic directions through textual contrasts, but they require per-concept training and architecture-specific fine-tuning (e.g., LoRA), limiting scalability to new modalities. In this work, we introduce a simple yet effective approach that is fully <em>training-free</em> and <em>modality-agnostic</em>, achieved by partially estimating the CS formula during inference. To support modality-agnostic evaluation, we extend the CS benchmark to include both video and audio, establishing the first suite for fine-grained concept generation control with multiple modalities. We further propose three evaluation properties along with new metrics to improve evaluation quality. Finally, we identify an open problem of scale selection and non-linear traversals and introduce a two-stage procedure that automatically detects saturation points and reparameterizes traversal for perceptually uniform, semantically meaningful edits. Extensive experiments demonstrate that our method enables plug-and-play, training-free concept control across modalities, improves over existing baselines, and establishes new tools for principled controllable generation.</p>
-                <div class="paper-note">
-                    <p>This website presents visual examples of our results across different modalities. The full code and implementation will be available soon.</p>
-                </div>
             </div>
             
             <!-- Teaser Figure -->
             <div class="teaser-container">
                 <img src="website_outputs/figures_from_paper/teaser.jpg" alt="Method Overview Teaser" class="teaser-image">
+            </div>
+
+            <div class="paper-note">
+                    <p>This website presents visual examples of our results across different modalities. The full code and implementation will be available soon.</p>
             </div>
         </div>
 
@@ -638,18 +642,18 @@
             <div class="slider-container">
                 <h1>Interactive Image Sliders</h1>
                 <div class="slider-description">
-                    Explore different image transformations and effects. 
+                    Explore different image slider examples. 
                     Move the sliders below to see how various attributes change.
                 </div>
 
                 <div class="video-row-container">
                     <!-- Facial Expression Slider -->
                     <div class="video-item">
-                        <h3>Smiling</h3>
+                        <h3>Expression</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Frowning</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Neutral</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Smiling</div>
                         </div>
@@ -667,7 +671,7 @@
                         <div class="prompts-container">
                             <div class="prompt negative">Young</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Neutral</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Old</div>
                         </div>
@@ -685,7 +689,7 @@
                         <div class="prompts-container">
                             <div class="prompt negative">New</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Car</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Damaged</div>
                         </div>
@@ -703,19 +707,14 @@
         <!-- Additional Image Grid Examples -->
         <div class="slider-row" id="image-grids">
             <div class="slider-container">
-                <h1>Additional Slider Examples</h1>
-                <div class="slider-description">
-                    More examples of our concept sliders showing smooth transformations across different attributes.
-                </div>
-                
                 <div class="image-grid-container">
                     <!-- Age Slider Grid Row -->
                     <div class="image-grid-row">
-                        <h3>Age Transformation</h3>
+                        <h3>Age Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Young</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Old</div>
                         </div>
@@ -726,11 +725,11 @@
                     
                     <!-- Lipstick Slider Grid Row -->
                     <div class="image-grid-row">
-                        <h3>Makeup</h3>
+                        <h3>Makeup Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">No Makeup</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Makeup</div>
                         </div>
@@ -741,13 +740,13 @@
                     
                     <!-- Dog Fur Slider Grid Row -->
                     <div class="image-grid-row">
-                        <h3>Dog Fur Transformation</h3>
+                        <h3>Dog Fur Slider</h3>
                         <div class="prompts-container">
-                            <div class="prompt negative">Dark Fur</div>
+                            <div class="prompt negative">Darker Fur</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Dog</div>
                             <span class="arrow-right">→</span>
-                            <div class="prompt positive">Light Fur</div>
+                            <div class="prompt positive">Lighter Fur</div>
                         </div>
                         <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
                             <img src="website_outputs/dog/timestep_20251010_121753_099409/seed_1144/combined_row.jpeg" alt="Dog Fur Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
@@ -762,8 +761,8 @@
             <div class="slider-container">
                 <h1>Interactive Video Slider</h1>
                 <div class="slider-description">
-                    This slider demonstrates different video effects and transitions. 
-                    Move the sliders below to explore different styles.
+                    Explore different video slider examples. 
+                    Move the sliders below to see how various attributes change.
                 </div>
                 
                 <div class="video-row-container">
@@ -772,9 +771,9 @@
                         <div class="prompts-container">
                             <div class="prompt negative">Calm ocean</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Normal Ocean</div>
+                            <div class="prompt neutral">Sailboat in the ocean</div>
                             <span class="arrow-right">→</span>
-                            <div class="prompt positive">Stormy ocean</div>
+                            <div class="prompt positive">Wavy ocean</div>
                         </div>
                         <div class="video-display" id="videoDisplay1">
                             <video id="currentVideo1" autoplay muted loop>
@@ -796,16 +795,16 @@
                             <span class="arrow-left">←</span>
                             <div class="prompt neutral">River streaming through valley</div>
                             <span class="arrow-right">→</span>
-                            <div class="prompt positive">Wavey river</div>
+                            <div class="prompt positive">Wavy river</div>
                         </div>
                         <div class="video-display" id="videoDisplayRiver">
                             <video id="currentVideoRiver" autoplay muted loop>
-                                <source src="website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4" type="video/mp4">
+                                <source src="website_outputs/video/river_waves/7.5/1.0/15/1829/scale_0.0.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
                         <div class="slider-controls">
-                            <input type="range" min="1" max="5" value="2" class="slider" id="videoSliderRiver">
+                            <input type="range" min="1" max="7" value="4" class="slider" id="videoSliderRiver">
                             <div class="image-counter">
                             </div>
                         </div>
@@ -816,7 +815,7 @@
                         <div class="prompts-container">
                             <div class="prompt negative">Brown, bare tree</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Tree leaves rustling in wind</div>
+                            <div class="prompt neutral">Tree rustling in wind</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Green, leafy tree</div>
                         </div>
@@ -833,6 +832,63 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Additional Video Examples -->
+                <div class="image-grid-container" style="margin-top: 30px;">
+                    <!-- Mountain Hiking Video Row -->
+                    <div class="image-grid-row">
+                        <h3>Mountain Hikers Slider</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Less hikers</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Mountain hiking trail</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">More hikers</div>
+                        </div>
+                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
+                                <source src="website_outputs/video_website/mountain_hiking/7.5/1.0/15/205/combined_row.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    
+                    <!-- Lighthouse Water Video Row -->
+                    <div class="image-grid-row">
+                        <h3>Lighthouse Water Slider</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Calm ocean</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Lighthouse in the ocean</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Wavy ocean</div>
+                        </div>
+                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
+                                <source src="website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/combined_row.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    
+                    <!-- Cat Color Video Row -->
+                    <div class="image-grid-row">
+                        <h3>Cat Fur Color Slider</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Dark Fur</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Cat on windowsill</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Orange Fur</div>
+                        </div>
+                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
+                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
+                                <source src="website_outputs/video_website/cat_color/7.5/1.0/15/1829/combined_row.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -842,18 +898,18 @@
         <!-- LTX Video Grids Section -->
         <div class="slider-row" id="ltx-video-grids">
             <div class="slider-container">
-                <h1>LTX Video Grids</h1>
+                <h1>Slider examples with LTX-Video</h1>
                 <div class="slider-description">
-                    Explore video transformations using LTX Video generation with different concept variations.
+                    Examples of video sliders using LTX-Video generation with different concepts.
                 </div>
                 
                 <div class="video-grid-container">
                     <div class="video-grid-row">
-                        <h3>Age Concept</h3>
+                        <h3>Age Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Old</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Age</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Young</div>
                         </div>
@@ -864,7 +920,7 @@
                     </div>
                     
                     <div class="video-grid-row">
-                        <h3>Sailboat Concept</h3>
+                        <h3>Sailboat Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Slow boat</div>
                             <span class="arrow-left">←</span>
@@ -879,9 +935,9 @@
                     </div>
                     
                     <div class="video-grid-row">
-                        <h3>Car Color Concept</h3>
+                        <h3>Car Color Slider</h3>
                         <div class="prompts-container">
-                            <div class="prompt negative">Old white car</div>
+                            <div class="prompt negative">Old gray car</div>
                             <span class="arrow-left">←</span>
                             <div class="prompt neutral">Car</div>
                             <span class="arrow-right">→</span>
@@ -912,7 +968,7 @@
                         <div class="prompts-container">
                             <div class="prompt negative">Young & Frowning</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Old & Smiling</div>
                         </div>
@@ -926,7 +982,7 @@
                         <div class="prompts-container">
                             <div class="prompt negative">Frowning & no glasses & no lipstick</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Smiling & glasses & lipstick</div>
                         </div>
@@ -948,14 +1004,57 @@
                     Comparisons between different methods and effectiveness of our ASTD add-on across various concepts.
                 </div>
                 
+
+                    <!-- ASTD Add-on Effectiveness Comparison -->
+                    <div class="video-grid-row">
+                        <h3>ASTD Add-on Effectiveness - Age Slider</h3>
+                        <div class="prompts-container">
+                            <div class="prompt negative">Young</div>
+                            <span class="arrow-left">←</span>
+                            <div class="prompt neutral">Person</div>
+                            <span class="arrow-right">→</span>
+                            <div class="prompt positive">Old</div>
+                        </div>
+                        
+                        <div class="method-comparison-grid">
+                            <div class="method-row">
+                                <div class="method-label">Ours w/ ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_guided_age_w_astd_compare.jpg" alt="Ours with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">Ours w/o ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_guided_age_wo_astd_compare.jpg" alt="Ours without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            
+                            <hr style="margin: 20px 0; border: none; border-top: 2px solid #e0e0e0;">
+
+                            <div class="method-row">
+                                <div class="method-label">CS w/ ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_lora_age_w_astd_compare.jpg" alt="CS with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="method-row">
+                                <div class="method-label">CS w/o ASTD</div>
+                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
+                                    <img src="website_outputs/figures_from_paper/7_lora_age_wo_astd_compare.jpg" alt="CS without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 <div class="video-grid-container">
                     <!-- Glasses Concept Comparison -->
                     <div class="video-grid-row">
-                        <h3>Glasses Concept - Method Comparison</h3>
+                        <h3>Glasses Slider - Method Comparison</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">No Glasses</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Glasses</div>
                         </div>
@@ -981,54 +1080,15 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- ASTD Add-on Effectiveness Comparison -->
-                    <div class="video-grid-row">
-                        <h3>ASTD Add-on Effectiveness - Age Concept</h3>
-                        <div class="prompts-container">
-                            <div class="prompt negative">Young</div>
-                            <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
-                            <span class="arrow-right">→</span>
-                            <div class="prompt positive">Old</div>
-                        </div>
-                        
-                        <div class="method-comparison-grid">
-                            <div class="method-row">
-                                <div class="method-label">Ours w/ ASTD</div>
-                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
-                                    <img src="website_outputs/figures_from_paper/7_guided_age_w_astd_compare.jpg" alt="Ours with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
-                                </div>
-                            </div>
-                            <div class="method-row">
-                                <div class="method-label">Ours w/o ASTD</div>
-                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
-                                    <img src="website_outputs/figures_from_paper/7_guided_age_wo_astd_compare.jpg" alt="Ours without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
-                                </div>
-                            </div>
-                            <div class="method-row">
-                                <div class="method-label">CS w/ ASTD</div>
-                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
-                                    <img src="website_outputs/figures_from_paper/7_lora_age_w_astd_compare.jpg" alt="CS with ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
-                                </div>
-                            </div>
-                            <div class="method-row">
-                                <div class="method-label">CS w/o ASTD</div>
-                                <div class="image-display" style="width: 100%; max-width: 900px; height: auto;">
-                                    <img src="website_outputs/figures_from_paper/7_lora_age_wo_astd_compare.jpg" alt="CS without ASTD - Age Comparison" style="width: 100%; height: auto; object-fit: contain;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 
                     
                     <!-- Smiling Concept Comparison -->
                     <div class="video-grid-row">
-                        <h3>Smiling Concept - Method Comparison</h3>
+                        <h3>Smiling Slider - Method Comparison</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Frowning</div>
                             <span class="arrow-left">←</span>
-                            <div class="prompt neutral">Original</div>
+                            <div class="prompt neutral">Person</div>
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Smiling</div>
                         </div>
@@ -1201,14 +1261,13 @@
             
             // Array of video URLs for River Waves slider
             const videoSourcesRiver = [
-                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-12.0.mp4',
-                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-8.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-4.0.mp4',
-                // 'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_-2.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_0.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_2.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_4.0.mp4',
-                'website_outputs/video/river_waves/7.5/1.0/15/2007/scale_12.0.mp4'
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_-8.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_-4.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_0.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_2.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_4.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_6.0.mp4',
+                'website_outputs/video/river_waves/7.5/1.0/15/1829/scale_9.0.mp4'
             ];
             
             // Array of video URLs for Tree slider
