@@ -1150,13 +1150,33 @@
             async function setVideoSource(video, url) {
                 if (videoCache.has(url)) {
                     video.src = videoCache.get(url);
+                    video.load();
                     return;
                 }
-                const response = await fetch(url);
-                const blob = await response.blob();
-                const objectUrl = URL.createObjectURL(blob);
-                videoCache.set(url, objectUrl);
-                video.src = objectUrl;
+
+                const preloadVideo = document.createElement('video');
+                preloadVideo.preload = 'auto';
+                preloadVideo.src = url;
+
+                const onLoaded = () => {
+                    videoCache.set(url, preloadVideo.src);
+                    video.src = preloadVideo.src;
+                    video.load();
+                    // cleanup();
+                };
+
+                const onError = (error) => {
+                    console.error('Failed to preload video:', url, error);
+                    cleanup();
+                };
+
+                const cleanup = () => {
+                    preloadVideo.removeEventListener('loadeddata', onLoaded);
+                    preloadVideo.removeEventListener('error', onError);
+                };
+
+                preloadVideo.addEventListener('loadeddata', onLoaded, { once: true });
+                preloadVideo.addEventListener('error', onError, { once: true });
             }
 
             // Array of image URLs for smiling expressions (first slider) - JPEG only
