@@ -21,6 +21,9 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 text-align: center;
                 margin-bottom: 30px;
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .slider-row {
@@ -45,13 +48,18 @@
                 align-items: center;
                 justify-content: center;
                 background-color: #f9f9f9;
+                width: 100%;
+                max-width: 350px;
+                height: 280px;
             }
             
             .image-display img {
                 display: block;
                 max-width: 100%;
+                max-height: 100%;
+                width: auto;
                 height: auto;
-                object-fit: cover;
+                object-fit: contain;
             }
             
             .slider-controls {
@@ -170,8 +178,9 @@
             }
             
             .video-display {
-                width: 400px;
-                height: 300px;
+                width: 100%;
+                max-width: 350px;
+                height: 280px;
                 margin: 0 auto 0px;
                 border: 2px solid #ddd;
                 border-radius: 8px;
@@ -191,17 +200,22 @@
             .video-row-container {
                 display: flex;
                 justify-content: space-between;
-                align-items: stretch;
-                max-width: 100%;
+                align-items: flex-end;
+                max-width: 1200px;
                 margin: 20px auto;
                 gap: 20px;
                 flex-wrap: wrap;
+                padding: 0 20px;
             }
             
             .video-item {
                 flex: 1;
                 min-width: 280px;
+                max-width: 380px;
                 text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
             }
             
             .video-item video {
@@ -293,6 +307,25 @@
             @media (max-width: 768px) {
                 .audio-section-grid {
                     grid-template-columns: 1fr;
+                }
+                
+                .video-row-container {
+                    padding: 0 10px;
+                    gap: 15px;
+                }
+                
+                .video-item {
+                    min-width: 260px;
+                    max-width: 100%;
+                }
+                
+                .video-display, .image-display {
+                    max-width: 100%;
+                    height: 240px;
+                }
+                
+                .slider-container {
+                    padding: 20px;
                 }
             }
             
@@ -420,14 +453,131 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 text-align: center;
                 margin-bottom: 30px;
+                position: relative;
             }
             
             .paper-title {
                 font-size: 24px;
                 font-weight: 700;
                 color: #1f2933;
-                margin-bottom: 25px;
+                margin-bottom: 30px;
                 line-height: 1.3;
+                padding-right: 70px; /* Add padding to avoid logo overlap */
+            }
+            
+            @media (max-width: 768px) {
+                .paper-title {
+                    padding-right: 0; /* Remove padding on mobile when logo is below */
+                }
+            }
+            
+            .paper-authors {
+                margin-bottom: 25px;
+                text-align: center;
+                max-width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .authors-grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px 20px;
+                margin: 0 0 15px 0;
+            }
+            
+            @media (max-width: 1000px) {
+                .authors-grid {
+                    gap: 6px 15px;
+                }
+            }
+            
+            @media (max-width: 600px) {
+                .authors-grid {
+                    gap: 8px 12px;
+                }
+            }
+            
+            .author-name {
+                font-weight: 600;
+                color: #2d3748;
+                font-size: 14px;
+                line-height: 1.3;
+                white-space: nowrap;
+            }
+            
+            .affiliations {
+                font-size: 12px;
+                color: #4a5568;
+                line-height: 1.5;
+                margin: 0 0 20px 0;
+                text-align: center;
+            }
+            
+            .paper-links {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            
+            .repo-link {
+                display: inline-block;
+                background: #f8f9fa;
+                color: #2d3748;
+                text-decoration: none;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+                font-weight: 500;
+                border: 2px solid #e2e8f0;
+                transition: all 0.3s ease;
+                margin-bottom: 10px;
+            }
+            
+            .repo-link:hover {
+                background: #e8f5e8;
+                color: #2e7d32;
+                border-color: #4CAF50;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            
+            .arxiv-link {
+                display: inline-block;
+                background: #fff3e0;
+                color: #e65100;
+                text-decoration: none;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 14px;
+                font-weight: 500;
+                border: 2px solid #ffcc80;
+                transition: all 0.3s ease;
+                margin-bottom: 10px;
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            
+            .bgu-logo {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: auto;
+                opacity: 0.8;
+            }
+            
+            @media (max-width: 768px) {
+                .bgu-logo {
+                    position: relative;
+                    top: auto;
+                    right: auto;
+                    margin: 15px auto 0 auto;
+                    display: block;
+                }
             }
             
             .teaser-container {
@@ -607,7 +757,36 @@
     <body>
         <!-- Paper Header -->
         <div class="paper-header">
-            <h1 class="paper-title">Training-Free Modality-Agnostic Concept Sliders: Fine-Grained Control via Diffusion Models of Images, Audio, and Video</h1>
+            <img src="website_outputs/bgu.jpeg" alt="Ben-Gurion University Logo" class="bgu-logo">
+            
+            <h1 class="paper-title">Free Sliders: Training-Free Modality-Agnostic Concept Sliders: Fine-Grained Control via Diffusion Models of Images, Audio, and Video</h1>
+            
+            <!-- Authors Section -->
+            <div class="paper-authors">
+                <div class="authors-grid">
+                    <span class="author-name">Rotem Ezra<sup>1</sup></span>
+                    <span class="author-name">Hedi Zisling<sup>1</sup></span>
+                    <span class="author-name">Nimrod Berman<sup>1</sup></span>
+                    <span class="author-name">Ilan Naiman<sup>1</sup></span>
+                    <span class="author-name">Alexey Gorkor<sup>2</sup></span>
+                    <span class="author-name">Liran Nochumsohn<sup>1</sup></span>
+                    <span class="author-name">Eliya Nachmani<sup>3</sup></span>
+                    <span class="author-name">Omri Azencot<sup>1</sup></span>
+                </div>
+                <div class="affiliations">
+                    <sup>1</sup>Faculty of Computer and Information Science, Ben-Gurion University of the Negev<br>
+                    <sup>2</sup>Lightricks<br>
+                    <sup>3</sup>Department of Electrical and Computer Engineering, Ben-Gurion University of the Negev
+                </div>
+                <div class="paper-links">
+                    <a href="https://github.com/azencot-group/ConceptSliders" target="_blank" class="repo-link">
+                        📂 View Code Repository
+                    </a>
+                    <span class="arxiv-link">
+                        📄 arXiv Paper (Coming Soon)
+                    </span>
+                </div>
+            </div>
             
             <div class="paper-abstract">
                 <h2>Abstract</h2>
@@ -620,7 +799,7 @@
             </div>
 
             <div class="paper-note">
-                    <p>This website presents visual examples of our results across different modalities. The full code and implementation will be available soon.</p>
+                    <p>This website presents visual examples of our results across different modalities.</p>
             </div>
         </div>
 
@@ -683,7 +862,7 @@
                         </div>
                     </div>
 
-                    <!-- Third Concept Slider -->
+                    <!-- Car Slider -->
                     <div class="video-item">
                         <h3>Car</h3>
                         <div class="prompts-container">
@@ -701,15 +880,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Additional Image Grid Examples -->
-        <div class="slider-row" id="image-grids">
-            <div class="slider-container">
-                <div class="image-grid-container">
-                    <!-- Age Slider Grid Row -->
-                    <div class="image-grid-row">
+                <!-- Second row of image sliders -->
+                <div class="video-row-container">
+                    <!-- Age Slider 2 -->
+                    <div class="video-item">
                         <h3>Age Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Young</div>
@@ -718,13 +893,16 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Old</div>
                         </div>
-                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <img src="website_outputs/images_website/age_real1/timestep_20251009_164728_879985/seed_4838/combined_row.jpeg" alt="Age Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
+                        <div class="image-display" id="imageDisplay4">
+                            <img id="currentImage4" src="website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_-2.jpeg" alt="Age">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="13" value="7" class="slider" id="imageSlider4">
                         </div>
                     </div>
-                    
-                    <!-- Lipstick Slider Grid Row -->
-                    <div class="image-grid-row">
+
+                    <!-- Makeup Slider -->
+                    <div class="video-item">
                         <h3>Makeup Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">No Makeup</div>
@@ -733,13 +911,16 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Makeup</div>
                         </div>
-                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <img src="website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/seed_205/combined_row.jpeg" alt="Lipstick Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
+                        <div class="image-display" id="imageDisplay5">
+                            <img id="currentImage5" src="website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_0.jpeg" alt="Makeup">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="13" value="7" class="slider" id="imageSlider5">
                         </div>
                     </div>
-                    
-                    <!-- Dog Fur Slider Grid Row -->
-                    <div class="image-grid-row">
+
+                    <!-- Dog Fur Slider -->
+                    <div class="video-item">
                         <h3>Dog Fur Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Darker Fur</div>
@@ -748,8 +929,11 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Lighter Fur</div>
                         </div>
-                        <div class="image-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <img src="website_outputs/dog/timestep_20251010_121753_099409/seed_1144/combined_row.jpeg" alt="Dog Fur Transformation Row" style="width: 100%; height: auto; object-fit: contain;">
+                        <div class="image-display" id="imageDisplay6">
+                            <img id="currentImage6" src="website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_0.0.png" alt="Dog Fur">
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="5" value="3" class="slider" id="imageSlider6">
                         </div>
                     </div>
                 </div>
@@ -833,10 +1017,10 @@
                     </div>
                 </div>
                 
-                <!-- Additional Video Examples -->
-                <div class="image-grid-container" style="margin-top: 30px;">
-                    <!-- Mountain Hiking Video Row -->
-                    <div class="image-grid-row">
+                <!-- Additional Interactive Video Sliders -->
+                <div class="video-row-container" style="margin-top: 30px;">
+                    <!-- Mountain Hiking Video - Static Grid -->
+                    <div class="video-item">
                         <h3>Mountain Hikers Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Less hikers</div>
@@ -845,16 +1029,21 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">More hikers</div>
                         </div>
-                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
-                                <source src="website_outputs/video_website/mountain_hiking/7.5/1.0/15/205/combined_row.mp4" type="video/mp4">
+                        <div class="video-display" id="videoDisplayMountain">
+                            <video id="currentVideoMountain" autoplay muted loop>
+                                <source src="website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_0.0.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="9" value="5" class="slider" id="videoSliderMountain">
+                            <div class="image-counter">
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Lighthouse Water Video Row -->
-                    <div class="image-grid-row">
+                    <!-- Lighthouse Water Video - Static Grid -->
+                    <div class="video-item">
                         <h3>Lighthouse Water Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Calm ocean</div>
@@ -863,16 +1052,21 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Wavy ocean</div>
                         </div>
-                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
-                                <source src="website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/combined_row.mp4" type="video/mp4">
+                        <div class="video-display" id="videoDisplayLighthouse">
+                            <video id="currentVideoLighthouse" autoplay muted loop>
+                                <source src="website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_0.0.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="9" value="5" class="slider" id="videoSliderLighthouse">
+                            <div class="image-counter">
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Cat Color Video Row -->
-                    <div class="image-grid-row">
+                    <!-- Cat Color Video - Static Grid -->
+                    <div class="video-item">
                         <h3>Cat Fur Color Slider</h3>
                         <div class="prompts-container">
                             <div class="prompt negative">Dark Fur</div>
@@ -881,11 +1075,16 @@
                             <span class="arrow-right">→</span>
                             <div class="prompt positive">Orange Fur</div>
                         </div>
-                        <div class="video-display" style="width: 100%; max-width: 1000px; height: auto;">
-                            <video autoplay muted loop controls style="width: 100%; height: auto; border-radius: 8px; border: 2px solid #ddd;">
-                                <source src="website_outputs/video_website/cat_color/7.5/1.0/15/1829/combined_row.mp4" type="video/mp4">
+                        <div class="video-display" id="videoDisplayCat">
+                            <video id="currentVideoCat" autoplay muted loop>
+                                <source src="website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_0.0.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
+                        </div>
+                        <div class="slider-controls">
+                            <input type="range" min="1" max="9" value="5" class="slider" id="videoSliderCat">
+                            <div class="image-counter">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1249,7 +1448,6 @@
             
             // Array of image URLs for car (third slider) - taking every second image
             const carImages = [
-                'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-5.jpeg',
                 'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-3.jpeg',
                 'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_-1.jpeg',
                 'website_outputs/images_website/damaged_car/timestep_20251009_164728_879985/seed_4838/scale_1.jpeg',
@@ -1303,6 +1501,80 @@
                 'website_outputs/video/tree/205/scale_12.0.mp4'
             ];
             
+// Additional slider arrays for new interactive sliders
+            
+            // Age Slider 2 (from the second section) - Use correct existing path
+            const ageImages2 = [
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_-4.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_-2.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_0.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_2.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_4.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_6.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_7.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_8.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_10.jpeg',
+                'website_outputs/images_website/age_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_4838/scale_12.jpeg'
+            ];
+            
+            // Makeup/Lipstick Slider - Use alternative smiling dataset as makeups
+            const makeupImages = [
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_-4.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_-2.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_0.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_2.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_4.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_6.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_8.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_10.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_12.jpeg',
+                'website_outputs/images_website/lipstick_real1/timestep_20251009_164728_879985/timestep_20251009_164728_879985/seed_205/scale_14.jpeg'
+            ];
+            
+            // Dog Fur Slider - Use available PNG files
+            const dogImages = [
+                'website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_-6.0.png',
+                'website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_-3.0.png',
+                'website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_0.0.png',
+                'website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_3.0.png',
+                'website_outputs/dog/timestep_20251010_121753_099409/seed_1144/scale_6.0.png'
+            ];
+            
+            // Video arrays for mountain hiking
+            const mountainVideos = [
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_-8.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_-4.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_-2.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_0.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_2.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_4.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_8.0.mp4",
+                "website_outputs/video_website/mountain_hiking/7.5/7.5/1.0/15/205/scale_12.0.mp4",
+            ];
+            
+            // Video arrays for lighthouse water - only combined row available
+            const lighthouseVideos = [
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_-2.0.mp4',
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_0.0.mp4',
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_2.0.mp4',
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_4.0.mp4',
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_8.0.mp4',
+                'website_outputs/video_website/lighthouse_water/7.5/1.0/15/1829/scale_12.0.mp4',
+            ];
+            
+            // Video arrays for cat color - only combined row available
+            const catVideos = [
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_-12.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_-8.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_-4.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_-2.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_0.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_2.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_4.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_8.0.mp4',
+                'website_outputs/video_website/cat_color/7.5/7.5/1.0/15/1829/scale_12.0.mp4',
+            ];
+            
             // Get elements
             const slider1 = document.getElementById('imageSlider1');
             const currentImage1 = document.getElementById('currentImage1');
@@ -1326,6 +1598,25 @@
             const videoSliderTree = document.getElementById('videoSliderTree');
             const currentVideoTree = document.getElementById('currentVideoTree');
             const videoNumberTree = document.getElementById('videoNumberTree');
+            
+            // Get new slider elements
+            const slider4 = document.getElementById('imageSlider4');
+            const currentImage4 = document.getElementById('currentImage4');
+            
+            const slider5 = document.getElementById('imageSlider5');
+            const currentImage5 = document.getElementById('currentImage5');
+            
+            const slider6 = document.getElementById('imageSlider6');
+            const currentImage6 = document.getElementById('currentImage6');
+            
+            const videoSliderMountain = document.getElementById('videoSliderMountain');
+            const currentVideoMountain = document.getElementById('currentVideoMountain');
+            
+            const videoSliderLighthouse = document.getElementById('videoSliderLighthouse');
+            const currentVideoLighthouse = document.getElementById('currentVideoLighthouse');
+            
+            const videoSliderCat = document.getElementById('videoSliderCat');
+            const currentVideoCat = document.getElementById('currentVideoCat');
             
             // Update functions
             function updateImage1() {
@@ -1386,6 +1677,58 @@
                 setVideoSource(currentVideoTree, videoSourcesTree[videoIndex]);
             }
             
+            // New update functions
+            function updateImage4() {
+                const sliderValue = parseInt(slider4.value);
+                const imageIndex = sliderValue - 1;
+                currentImage4.alt = `Age 2`;
+                if (updateImage4.lastIndex === imageIndex) return;
+                updateImage4.lastIndex = imageIndex;
+                setImageSource(currentImage4, ageImages2[imageIndex]);
+            }
+            
+            function updateImage5() {
+                const sliderValue = parseInt(slider5.value);
+                const imageIndex = sliderValue - 1;
+                currentImage5.alt = `Makeup`;
+                if (updateImage5.lastIndex === imageIndex) return;
+                updateImage5.lastIndex = imageIndex;
+                setImageSource(currentImage5, makeupImages[imageIndex]);
+            }
+            
+            function updateImage6() {
+                const sliderValue = parseInt(slider6.value);
+                const imageIndex = sliderValue - 1;
+                currentImage6.alt = `Dog Fur`;
+                if (updateImage6.lastIndex === imageIndex) return;
+                updateImage6.lastIndex = imageIndex;
+                setImageSource(currentImage6, dogImages[imageIndex]);
+            }
+            
+            function updateVideoMountain() {
+                const sliderValue = parseInt(videoSliderMountain.value);
+                const videoIndex = sliderValue - 1;
+                if (updateVideoMountain.lastIndex === videoIndex) return;
+                updateVideoMountain.lastIndex = videoIndex;
+                setVideoSource(currentVideoMountain, mountainVideos[videoIndex]);
+            }
+            
+            function updateVideoLighthouse() {
+                const sliderValue = parseInt(videoSliderLighthouse.value);
+                const videoIndex = sliderValue - 1;
+                if (updateVideoLighthouse.lastIndex === videoIndex) return;
+                updateVideoLighthouse.lastIndex = videoIndex;
+                setVideoSource(currentVideoLighthouse, lighthouseVideos[videoIndex]);
+            }
+            
+            function updateVideoCat() {
+                const sliderValue = parseInt(videoSliderCat.value);
+                const videoIndex = sliderValue - 1;
+                if (updateVideoCat.lastIndex === videoIndex) return;
+                updateVideoCat.lastIndex = videoIndex;
+                setVideoSource(currentVideoCat, catVideos[videoIndex]);
+            }
+            
             // Event listeners
             slider1.addEventListener('input', updateImage1);
             slider2.addEventListener('input', updateImage2);
@@ -1397,6 +1740,14 @@
             if (videoSliderTree) {
                 videoSliderTree.addEventListener('input', updateVideoTree);
             }
+            
+            // Add event listeners for new sliders
+            if (slider4) slider4.addEventListener('input', updateImage4);
+            if (slider5) slider5.addEventListener('input', updateImage5);
+            if (slider6) slider6.addEventListener('input', updateImage6);
+            if (videoSliderMountain) videoSliderMountain.addEventListener('input', updateVideoMountain);
+            if (videoSliderLighthouse) videoSliderLighthouse.addEventListener('input', updateVideoLighthouse);
+            if (videoSliderCat) videoSliderCat.addEventListener('input', updateVideoCat);
             
             // Audio discovery functions
             async function loadAudioManifest() {
@@ -1580,6 +1931,15 @@
                 updateVideo();
                 if (typeof updateVideoRiver === 'function') updateVideoRiver();
                 if (typeof updateVideoTree === 'function') updateVideoTree();
+                
+                // Initialize new interactive sliders
+                if (typeof updateImage4 === 'function') updateImage4();
+                if (typeof updateImage5 === 'function') updateImage5();
+                if (typeof updateImage6 === 'function') updateImage6();
+                if (typeof updateVideoMountain === 'function') updateVideoMountain();
+                if (typeof updateVideoLighthouse === 'function') updateVideoLighthouse();
+                if (typeof updateVideoCat === 'function') updateVideoCat();
+                
                 initializeAudioSections();
             });
 
@@ -1589,6 +1949,26 @@
             // prefetchAssets(videoSources, 'video');
             // prefetchAssets(videoSourcesRiver, 'video');
             // prefetchAssets(videoSourcesTree, 'video');
+
+            // Debug logging
+            console.log('Arrays loaded:');
+            console.log('emotionImages length:', emotionImages?.length);
+            console.log('ageImages length:', ageImages?.length);
+            console.log('carImages length:', carImages?.length);
+            console.log('videoSources length:', videoSources?.length);
+            console.log('videoSourcesRiver length:', videoSourcesRiver?.length);
+            console.log('videoSourcesTree length:', videoSourcesTree?.length);
+            console.log('ageImages2 length:', ageImages2?.length);
+            console.log('makeupImages length:', makeupImages?.length);
+            console.log('dogImages length:', dogImages?.length);
+            console.log('mountainVideos length:', mountainVideos?.length);
+            console.log('lighthouseVideos length:', lighthouseVideos?.length);
+            console.log('catVideos length:', catVideos?.length);
+            
+            // Check first few elements
+            console.log('carImages first 3:', carImages?.slice(0, 3));
+            console.log('ageImages first 3:', ageImages?.slice(0, 3));
+            console.log('mountainVideos first 3:', mountainVideos?.slice(0, 3));
         </script>
     </body>
 </html>
