@@ -561,22 +561,29 @@
                 cursor: not-allowed;
             }
             
-            .bgu-logo {
+            .logos-container {
                 position: absolute;
                 top: 20px;
                 right: 20px;
-                width: 50px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .bgu-logo, .lightricks-logo {
+                width: 60px;
                 height: auto;
                 opacity: 0.8;
             }
             
             @media (max-width: 768px) {
-                .bgu-logo {
+                .logos-container {
                     position: relative;
                     top: auto;
                     right: auto;
                     margin: 15px auto 0 auto;
-                    display: block;
+                    justify-content: center;
                 }
             }
             
@@ -757,7 +764,10 @@
     <body>
         <!-- Paper Header -->
         <div class="paper-header">
-            <img src="website_outputs/bgu.jpeg" alt="Ben-Gurion University Logo" class="bgu-logo">
+            <div class="logos-container">
+                <img src="website_outputs/bgu.jpeg" alt="Ben-Gurion University Logo" class="bgu-logo">
+                <img src="website_outputs/lightricks.jpg" alt="Lightricks Logo" class="lightricks-logo">
+            </div>
             
             <h1 class="paper-title">Free Sliders: Training-Free Modality-Agnostic Concept Sliders: Fine-Grained Control via Diffusion Models of Images, Audio, and Video</h1>
             
